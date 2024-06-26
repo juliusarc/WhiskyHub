@@ -1,0 +1,83 @@
+﻿@page "/produtos/create"
+@inject WhiskyHub.Data.ApplicationDbContext DB
+@using WhiskyHub.Data
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h4>Produto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Produto" OnValidSubmit="AddProduto" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome:</label> 
+                <InputText id="nome" @bind-Value="Produto.Nome" class="form-control" /> 
+                <ValidationMessage For="() => Produto.Nome" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="descricao" class="form-label">Descricao:</label> 
+                <InputText id="descricao" @bind-Value="Produto.Descricao" class="form-control" /> 
+                <ValidationMessage For="() => Produto.Descricao" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="marca" class="form-label">Marca:</label> 
+                <InputText id="marca" @bind-Value="Produto.Marca" class="form-control" /> 
+                <ValidationMessage For="() => Produto.Marca" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="tipo" class="form-label">Tipo:</label> 
+                <InputText id="tipo" @bind-Value="Produto.Tipo" class="form-control" /> 
+                <ValidationMessage For="() => Produto.Tipo" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="idade" class="form-label">Idade:</label> 
+                <InputNumber id="idade" @bind-Value="Produto.Idade" class="form-control" /> 
+                <ValidationMessage For="() => Produto.Idade" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="volume" class="form-label">Volume:</label> 
+                <InputNumber id="volume" @bind-Value="Produto.Volume" class="form-control" /> 
+                <ValidationMessage For="() => Produto.Volume" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="teoralcoolico" class="form-label">TeorAlcoolico:</label> 
+                <InputNumber id="teoralcoolico" @bind-Value="Produto.TeorAlcoolico" class="form-control" /> 
+                <ValidationMessage For="() => Produto.TeorAlcoolico" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="preco" class="form-label">Preco:</label> 
+                <InputNumber id="preco" @bind-Value="Produto.Preco" class="form-control" /> 
+                <ValidationMessage For="() => Produto.Preco" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="quantidadeemestoque" class="form-label">QuantidadeEmEstoque:</label> 
+                <InputNumber id="quantidadeemestoque" @bind-Value="Produto.QuantidadeEmEstoque" class="form-control" /> 
+                <ValidationMessage For="() => Produto.QuantidadeEmEstoque" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/produtos">Back to List</a>
+</div>
+
+@code {
+
+    [SupplyParameterFromForm]
+    public Produto Produto { get; set; } = new();
+
+    // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+    public async Task AddProduto()
+    {
+        DB.Product.Add(Produto);
+        await DB.SaveChangesAsync();
+        NavigationManager.NavigateTo("/produtos");
+    }
+}

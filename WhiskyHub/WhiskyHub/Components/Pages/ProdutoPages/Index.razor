@@ -1,0 +1,30 @@
+﻿@page "/produtos"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject WhiskyHub.Data.ApplicationDbContext DB
+@using WhiskyHub.Data
+
+<PageTitle>WhiskiesHub</PageTitle>
+
+<h1>WhiskiesHub</h1>
+
+<p>
+    <a href="produtos/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="DB.Product">
+    <PropertyColumn Property="produto => produto.Nome" />
+    <PropertyColumn Property="produto => produto.Descricao" />
+    <PropertyColumn Property="produto => produto.Marca" />
+    <PropertyColumn Property="produto => produto.Tipo" />
+    <PropertyColumn Property="produto => produto.Idade" />
+    <PropertyColumn Property="produto => produto.Volume" />
+    <PropertyColumn Property="produto => produto.TeorAlcoolico" />
+    <PropertyColumn Property="produto => produto.Preco" />
+    <PropertyColumn Property="produto => produto.QuantidadeEmEstoque" />
+
+    <TemplateColumn Context="produto">
+        <a href="@($"produtos/edit?id={produto.Id}")">Edit</a> |
+        <a href="@($"produtos/details?id={produto.Id}")">Details</a> |
+        <a href="@($"produtos/delete?id={produto.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
